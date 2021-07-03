@@ -20,5 +20,8 @@
   "homepage": "https://bitbucket.org/ROKT/backend-technical-test#readme",
   "devDependencies": {
     "jest": "^27.0.5"
+  },
+  "dependencies": {
+    "moment": "^2.29.1"
   }
 }
