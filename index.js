@@ -1,19 +1,76 @@
-const moment = require('moment');
 const fs = require('fs')
+const inquirer = require('inquirer')
+const moment = require('moment-timezone');
+moment.tz.setDefault("Etc/UTC");
 
-// commands appear after the first 2 elements of the argument list
-console.log(process.argv)
+let answers = {}
 
-const input = process.argv.splice(2)
-
-let commands = ensureValidCommands(input);
-
-if(commands && commands.length === 3) {
-    console.log(commands)
+const validateFilePath = async (filePath) => {
+    if (fs.existsSync(filePath)) {
+        return true
+    }
+    else {
+        return "Invalid file path. Please input a valid file path eg. sample1.txt\n"
+    }
 }
-else {
-    console.log("")
+
+const validateDate = async (inputDate) => {
+    if (moment(new Date(inputDate)).isValid()) {
+        return true
+    }
+    else {
+        return "Invalid start date. Please input a valid UTC date eg. 2021-07-05T03:07:13Z\n" // add example of valid date
+    }
+};
+
+async function filePathQ() {
+    const answer = await inquirer.prompt({
+        name: 'filePath',
+        message: 'Enter a valid valid file eg. sample1.txt',
+        type: 'input',
+        validate: validateFilePath
+    });
+
+    console.log("You entered: " + answer["filePath"])
+    answers["filePath"] = answer["filePath"]
+    let _ = await startDateQ();
 }
+
+async function startDateQ() {
+    const answer = await inquirer.prompt({
+        name: 'startDate',
+        message: 'Enter a valid start date in UTC format eg. 2021-07-05T03:07:13Z',
+        type: 'input',
+        validate: validateDate
+    });
+
+    console.log("You entered: " + answer["startDate"])
+    answers["startDate"] = answer["startDate"]
+    let _ = await endDateQ();
+}
+
+async function endDateQ() {
+    const answer = await inquirer.prompt({
+        name: 'endDate',
+        message: 'Enter a valid end date in UTC format eg. 2021-07-05T03:07:13Z',
+        type: 'input',
+        validate: validateDate
+    });
+
+    console.log("You entered: " + answer["endDate"])
+    answers["endDate"] = answer["endDate"]
+}
+
+async function askQs() {
+    let _ = await filePathQ();
+    console.log(JSON.stringify(answers))
+}
+
+askQs()
+
+// inquirer.prompt(questions).then(answers => {
+//     let validedStart = validateDate(answers['startDate'])
+// })
 
 function ensureValidCommands(input) {
     let part = -1
