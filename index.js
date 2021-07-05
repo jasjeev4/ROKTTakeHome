@@ -1,64 +1,49 @@
 const fs = require('fs')
 const inquirer = require('inquirer')
 const moment = require('moment-timezone');
+const validators = require('./validators/validators')
+const messages = require('./messages/messages')
+
 moment.tz.setDefault("Etc/UTC");
 
 let answers = {}
 
-const validateFilePath = async (filePath) => {
-    if (fs.existsSync(filePath)) {
-        return true
-    }
-    else {
-        return "Invalid file path. Please input a valid file path eg. sample1.txt\n"
-    }
-}
-
-const validateDate = async (inputDate) => {
-    if (moment(new Date(inputDate)).isValid()) {
-        return true
-    }
-    else {
-        return "Invalid start date. Please input a valid UTC date eg. 2021-07-05T03:07:13Z\n" // add example of valid date
-    }
-};
-
 async function filePathQ() {
     const answer = await inquirer.prompt({
         name: 'filePath',
-        message: 'Enter a valid valid file eg. sample1.txt',
+        message: messages.enterFile,
         type: 'input',
-        validate: validateFilePath
+        validate: validators.validateFilePath
     });
 
-    console.log("You entered: " + answer["filePath"])
-    answers["filePath"] = answer["filePath"]
+    console.log("You entered: " + answer["filePath"].trim())
+    answers["filePath"] = answer["filePath"].trim()
     let _ = await startDateQ();
 }
 
 async function startDateQ() {
     const answer = await inquirer.prompt({
         name: 'startDate',
-        message: 'Enter a valid start date in UTC format eg. 2021-07-05T03:07:13Z',
+        message: messages.enterStartDate,
         type: 'input',
-        validate: validateDate
+        validate: validators.validateDate
     });
 
-    console.log("You entered: " + answer["startDate"])
-    answers["startDate"] = answer["startDate"]
+    console.log("You entered: " + answer["startDate"].trim())
+    answers["startDate"] = answer["startDate"].trim()
     let _ = await endDateQ();
 }
 
 async function endDateQ() {
     const answer = await inquirer.prompt({
         name: 'endDate',
-        message: 'Enter a valid end date in UTC format eg. 2021-07-05T03:07:13Z',
+        message: messages.enterEndDate,
         type: 'input',
-        validate: validateDate
+        validate: validators.validateDate
     });
 
-    console.log("You entered: " + answer["endDate"])
-    answers["endDate"] = answer["endDate"]
+    console.log("You entered: " + answer["endDate"].trim())
+    answers["endDate"] = answer["endDate"].trim()
 }
 
 async function askQs() {
@@ -67,10 +52,6 @@ async function askQs() {
 }
 
 askQs()
-
-// inquirer.prompt(questions).then(answers => {
-//     let validedStart = validateDate(answers['startDate'])
-// })
 
 function ensureValidCommands(input) {
     let part = -1
