@@ -54,6 +54,8 @@ async function begin() {
     if(retVal != true) {
         console.clear()
         console.log(retVal)
+
+        await begin()
     }
 
     //console.log(JSON.stringify(lines))
