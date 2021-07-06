@@ -31,8 +31,18 @@ const validateString = async (input) => {
     }
 };
 
+const validateDateOrder = async (startDate, endDate) => {
+    if (moment(new Date(startDate.trim())).isAfter(moment(new Date(endDate.trim())))) {
+        return false
+    }
+    else {
+        return true
+    }
+};
+
 module.exports = {
     validateFilePath: validateFilePath,
     validateDate: validateDate,
-    validateString: validateString
+    validateString: validateString,
+    validateDateOrder: validateDateOrder
 }

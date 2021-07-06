@@ -49,6 +49,14 @@ async function endDateQ() {
 async function begin() {
     let _ = await filePathQ();
 
+    // check date order
+    if(! await validators.validateDateOrder(answers["startDate"], answers["endDate"])) {
+        console.clear()
+        console.log(messages.invalidDateOrder)
+
+        await begin()
+    }
+
     // createJSON
     let retVal = await model.createOutput(answers["filePath"], answers["startDate"], answers["endDate"])
     if(retVal != true) {

@@ -9,11 +9,15 @@ const reenterDate = "Invalid date. Please input a valid UTC date eg. 2021-07-05T
 
 const fileCorrupt = "The file is corrupted. Try another file."
 
+const invalidDateOrder = "The start date cannot be after the end date."
+
+
 module.exports = {
     enterFile: enterFile,
     reenterFile: reenterFile,
     enterStartDate: enterStartDate,
     enterEndDate: enterEndDate,
     reenterDate: reenterDate,
-    fileCorrupt: fileCorrupt
+    fileCorrupt: fileCorrupt,
+    invalidDateOrder: invalidDateOrder
 }
