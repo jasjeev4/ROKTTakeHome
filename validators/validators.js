@@ -22,7 +22,17 @@ const validateDate = async (inputDate) => {
     }
 };
 
+const validateString = async (input) => {
+   if (typeof input === 'string' || input instanceof String) {
+        return true
+    }
+    else {
+        return false
+    }
+};
+
 module.exports = {
     validateFilePath: validateFilePath,
-    validateDate: validateDate
+    validateDate: validateDate,
+    validateString: validateString
 }

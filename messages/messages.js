@@ -7,10 +7,13 @@ const enterEndDate = "Enter a valid end date in UTC format eg. 2021-07-05T03:07:
 
 const reenterDate = "Invalid date. Please input a valid UTC date eg. 2021-07-05T03:07:13Z\n"// add example of valid date
 
+const fileCorrupt = "The file is corrupted. Try another file."
+
 module.exports = {
     enterFile: enterFile,
     reenterFile: reenterFile,
     enterStartDate: enterStartDate,
     enterEndDate: enterEndDate,
-    reenterDate: reenterDate
+    reenterDate: reenterDate,
+    fileCorrupt: fileCorrupt
 }
