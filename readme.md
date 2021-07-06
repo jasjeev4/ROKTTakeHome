@@ -4,7 +4,16 @@
 
 The app has been implemented as a console app.
 
-## Usage
+
+## Usage - Using Docker
+
+
+```bash  
+
+docker run --rm -it  jasjeev4/rokt-takehome:latest
+
+```
+## Usage - Locally
 
 ```bash  
 
