@@ -32,5 +32,4 @@ npm run start
 ## Notes
 
 - The application supports multiple valid date input types apart from the obviously supported UTC time format. For example '2000' is a valid date input.
-
-- If the output is to be generated from a partially correct input file, it will be generated if the date in the range of the input dates is valid.
+- If there's no data in a valid date range, 

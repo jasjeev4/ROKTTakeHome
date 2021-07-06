@@ -4,7 +4,7 @@ const moment = require('moment-timezone');
 const messages = require('../messages/messages')
 const validators = require('../validators/validators')
 
-async function createOutput(filename, startTime, endTime) {
+async function createOutput(filename, startTime, endTime, silent = false) {
     const fileStream = fs.createReadStream(filename);
 
     const rl = readline.createInterface({
@@ -40,34 +40,40 @@ async function createOutput(filename, startTime, endTime) {
         if(!foundStart && start.isSameOrBefore(curDt)) {
             foundStart = true
 
-            // print first line
-            process.stdout.write(
-                "[\n"
-            );
+            if(!silent) {
+                // print first line
+                process.stdout.write(
+                    "[\n"
+                );
+            }
         }
-
-        if(foundStart) {
+        else {
             // display each entry
 
             if(firstEntry) {
                 firstEntry = false
             }
             else {
-                process.stdout.write(",");
+                if(!silent) {
+                    process.stdout.write(",");
+                }
             }
 
-            process.stdout.write(
-                "\n" + fourSpaces() + "{ \n" + fourSpaces() + fourSpaces() + "\"eventTime\": \"" + curDate + "\", \n" + fourSpaces() + fourSpaces() + "\"email\": \"" + email + "\", \n" + fourSpaces() + fourSpaces() + "\"sessionId\": \"" + sessionId + "\"\n" + fourSpaces() + "}"
-            );
+            if(!silent) {
+                process.stdout.write(
+                    "\n" + fourSpaces() + "{ \n" + fourSpaces() + fourSpaces() + "\"eventTime\": \"" + curDate + "\", \n" + fourSpaces() + fourSpaces() + "\"email\": \"" + email + "\", \n" + fourSpaces() + fourSpaces() + "\"sessionId\": \"" + sessionId + "\"\n" + fourSpaces() + "}"
+                );
+            }
         }
 
         if(curDt.isSameOrAfter(end)) {
-            // endLine = lno
 
-            // print last line
-            process.stdout.write(
-                "\n]\n"
-            );
+            if(!silent) {
+                // print last line
+                process.stdout.write(
+                    "\n]\n"
+                );
+            }
 
             return true
         }
@@ -77,9 +83,11 @@ async function createOutput(filename, startTime, endTime) {
     }
 
     // print last line
-    process.stdout.write(
-        "\n]\n"
-    );
+    if(!silent) {
+        process.stdout.write(
+            "\n]\n"
+        );
+    }
 
     return true
 }
