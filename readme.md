@@ -2,6 +2,7 @@
 
 # Backend - Technical Challenge
 
+The app has been implemented as a console app.
 
 ## Usage
 
