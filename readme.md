@@ -32,4 +32,4 @@ npm run start
 ## Notes
 
 - The application supports multiple valid date input types apart from the obviously supported UTC time format. For example '2000' is a valid date input.
-- If there's no data in a valid date range, 
+- If there's no data in a valid date range, an empty array will displayed to indicate no data was found within the range.
